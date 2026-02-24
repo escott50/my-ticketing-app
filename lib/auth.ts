@@ -1,11 +1,19 @@
 import type { NextAuthOptions } from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
+import { SupabaseAdapter } from "@auth/supabase-adapter";
+
+const supabaseUrl = process.env.SUPABASE_URL ?? process.env.NEXT_PUBLIC_SUPABASE_URL;
+const supabaseSecret = process.env.SUPABASE_SERVICE_ROLE_KEY ?? process.env.SUPABASE_SECRET_KEY;
 
 /**
- * NextAuth config. Used by the API route and getServerSession().
- * Add more providers (e.g. Credentials for email/password) here when you add a DB.
+ * NextAuth config. Uses the Supabase adapter when env vars are set so users
+ * and sessions are stored in PostgreSQL (next_auth schema).
  */
 export const authOptions: NextAuthOptions = {
+  adapter:
+    supabaseUrl && supabaseSecret
+      ? SupabaseAdapter({ url: supabaseUrl, secret: supabaseSecret })
+      : undefined,
   providers: [
     GoogleProvider({
       clientId: process.env.GOOGLE_CLIENT_ID ?? "",
@@ -13,10 +21,10 @@ export const authOptions: NextAuthOptions = {
     }),
   ],
   callbacks: {
-    // Add user id and email to the session so payments (and the rest of the app) can use it.
-    session({ session, token }) {
+    // With database adapter we get `user`; with JWT we get `token`. Attach id to session.
+    session({ session, user, token }) {
       if (session.user) {
-        session.user.id = token.sub ?? "";
+        session.user.id = (user?.id ?? token?.sub) ?? "";
       }
       return session;
     },
@@ -25,7 +33,7 @@ export const authOptions: NextAuthOptions = {
     signIn: "/auth/signin",
   },
   session: {
-    strategy: "jwt",
+    strategy: supabaseUrl && supabaseSecret ? "database" : "jwt",
     maxAge: 30 * 24 * 60 * 60, // 30 days
   },
 };
