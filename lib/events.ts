@@ -13,6 +13,7 @@ type EventRow = {
   image_url: string;
   organizer: string;
   created_by: string | null;
+  cancelled_at: string | null;
 };
 
 function rowToEvent(row: EventRow): Event {
@@ -26,6 +27,8 @@ function rowToEvent(row: EventRow): Event {
     price: Number(row.price),
     imageUrl: row.image_url,
     organizer: row.organizer,
+    createdBy: row.created_by ?? null,
+    cancelledAt: row.cancelled_at ?? null,
   };
 }
 
@@ -37,7 +40,8 @@ export async function getEvents(): Promise<Event[]> {
   if (!supabase) return [];
   const { data, error } = await supabase
     .from("events")
-    .select("id, title, description, date, time, location, price, image_url, organizer, created_by")
+    .select("id, title, description, date, time, location, price, image_url, organizer, created_by, cancelled_at")
+    .is("cancelled_at", null)
     .order("date", { ascending: true });
   if (error) throw error;
   return (data ?? []).map(rowToEvent);
@@ -51,7 +55,7 @@ export async function getEventById(id: string): Promise<Event | null> {
   if (!supabase) return null;
   const { data, error } = await supabase
     .from("events")
-    .select("id, title, description, date, time, location, price, image_url, organizer, created_by")
+    .select("id, title, description, date, time, location, price, image_url, organizer, created_by, cancelled_at")
     .eq("id", id)
     .single();
   if (error) {
@@ -59,4 +63,19 @@ export async function getEventById(id: string): Promise<Event | null> {
     throw error;
   }
   return data ? rowToEvent(data as EventRow) : null;
+}
+
+/**
+ * Fetch events created by a specific user (server-only). Returns [] when Supabase is not configured.
+ */
+export async function getEventsByCreator(userId: string): Promise<Event[]> {
+  const supabase = createServerSupabaseClient();
+  if (!supabase) return [];
+  const { data, error } = await supabase
+    .from("events")
+    .select("id, title, description, date, time, location, price, image_url, organizer, created_by, cancelled_at")
+    .eq("created_by", userId)
+    .order("date", { ascending: true });
+  if (error) throw error;
+  return (data ?? []).map(rowToEvent);
 }

@@ -29,6 +29,8 @@ export default async function EventPage({ params }: EventPageProps) {
     notFound();
   }
 
+  const cancelled = !!event.cancelledAt;
+
   return (
     <main className="mx-auto max-w-4xl px-4 py-8 sm:px-6">
       <Link
@@ -37,6 +39,12 @@ export default async function EventPage({ params }: EventPageProps) {
       >
         ← Back to events
       </Link>
+
+      {cancelled && (
+        <div className="mb-6 rounded-xl border border-amber-900/50 bg-amber-950/30 p-4 text-amber-200 text-sm">
+          This event has been cancelled. Tickets are no longer available.
+        </div>
+      )}
 
       <div className="rounded-xl overflow-hidden bg-zinc-800/50 border border-zinc-700/50">
         <div className="relative aspect-[21/9] bg-zinc-800">
@@ -69,14 +77,16 @@ export default async function EventPage({ params }: EventPageProps) {
             {event.description}
           </p>
 
-          <div className="mt-8 pt-6 border-t border-zinc-700">
-            <Link
-              href={`/checkout?eventId=${event.id}`}
-              className="inline-flex items-center justify-center rounded-full bg-white px-8 py-3.5 font-semibold text-zinc-900 hover:bg-zinc-200 transition-colors"
-            >
-              Get tickets
-            </Link>
-          </div>
+          {!cancelled && (
+            <div className="mt-8 pt-6 border-t border-zinc-700">
+              <Link
+                href={`/checkout?eventId=${event.id}`}
+                className="inline-flex items-center justify-center rounded-full bg-white px-8 py-3.5 font-semibold text-zinc-900 hover:bg-zinc-200 transition-colors"
+              >
+                Get tickets
+              </Link>
+            </div>
+          )}
         </div>
       </div>
     </main>

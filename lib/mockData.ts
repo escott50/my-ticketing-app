@@ -13,6 +13,10 @@ export type Event = {
   price: number;
   imageUrl: string;
   organizer: string;
+  /** Set when the event creator; used for edit/cancel auth. */
+  createdBy?: string | null;
+  /** Set when the organizer cancels the event; hidden from Explore, shown as cancelled. */
+  cancelledAt?: string | null;
 };
 
 export const events: Event[] = [
