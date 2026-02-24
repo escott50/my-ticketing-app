@@ -30,9 +30,9 @@ export default function EventCard({ event }: EventCardProps) {
   return (
     <Link
       href={`/events/${event.id}`}
-      className="group block rounded-xl overflow-hidden bg-zinc-800/50 border border-zinc-700/50 hover:border-zinc-500 transition-all hover:shadow-lg hover:shadow-black/20"
+      className="group block rounded-xl overflow-hidden bg-zinc-900 border border-zinc-800 hover:border-zinc-600 transition-all hover:shadow-lg hover:shadow-black/20"
     >
-      <div className="relative aspect-[16/10] bg-zinc-800 overflow-hidden">
+      <div className="relative aspect-[16/10] bg-zinc-800 overflow-hidden rounded-t-xl">
         <Image
           src={event.imageUrl}
           alt={event.title}
@@ -40,12 +40,12 @@ export default function EventCard({ event }: EventCardProps) {
           className="object-cover group-hover:scale-105 transition-transform duration-300"
           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
         />
-        <div className="absolute top-3 right-3 px-2.5 py-1 rounded-md bg-black/70 text-sm font-medium text-white">
+        <div className="absolute top-3 right-3 px-3 py-1.5 rounded-full bg-white text-sm font-medium text-zinc-900">
           {formatPrice(event.price)}
         </div>
       </div>
-      <div className="p-4">
-        <h2 className="font-semibold text-lg text-white group-hover:text-amber-400 transition-colors line-clamp-2">
+      <div className="p-5">
+        <h2 className="font-semibold text-lg text-white group-hover:text-zinc-300 transition-colors line-clamp-2">
           {event.title}
         </h2>
         <p className="text-sm text-zinc-400 mt-1">

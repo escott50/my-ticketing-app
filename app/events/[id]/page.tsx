@@ -66,7 +66,7 @@ export default async function EventPage({ params }: EventPageProps) {
             <span>{formatDate(event.date)}</span>
             <span>{event.time}</span>
             <span>{event.location}</span>
-            <span className="text-amber-400 font-medium">{formatPrice(event.price)}</span>
+            <span className="font-medium text-white">{formatPrice(event.price)}</span>
           </div>
 
           <p className="text-zinc-300 leading-relaxed whitespace-pre-line">
@@ -76,7 +76,7 @@ export default async function EventPage({ params }: EventPageProps) {
           <div className="mt-8 pt-6 border-t border-zinc-700">
             <Link
               href={`/checkout?eventId=${event.id}`}
-              className="inline-flex items-center justify-center rounded-lg bg-amber-500 hover:bg-amber-400 text-zinc-900 font-semibold px-6 py-3 transition-colors"
+              className="inline-flex items-center justify-center rounded-full bg-white px-8 py-3.5 font-semibold text-zinc-900 hover:bg-zinc-200 transition-colors"
             >
               Get tickets
             </Link>

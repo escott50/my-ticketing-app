@@ -68,7 +68,7 @@ function CheckoutContent() {
           <div className="p-8 text-center">
             <p className="text-zinc-400">
               No event selected.{" "}
-              <Link href="/" className="text-amber-400 hover:text-amber-300 underline">
+              <Link href="/" className="text-white hover:text-zinc-300 underline transition-colors">
                 Browse events
               </Link>{" "}
               and click &quot;Get tickets&quot; to see an order summary here.
@@ -80,7 +80,7 @@ function CheckoutContent() {
           <div className="p-6 pt-0">
             <button
               type="button"
-              className="w-full rounded-lg bg-amber-500 hover:bg-amber-400 text-zinc-900 font-semibold py-3 transition-colors"
+              className="w-full rounded-full bg-white py-3.5 font-semibold text-zinc-900 hover:bg-zinc-200 transition-colors"
             >
               Confirm (demo only)
             </button>
