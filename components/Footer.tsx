@@ -9,26 +9,32 @@ export default function Footer() {
       <div className="mx-auto max-w-6xl px-4 py-8 sm:px-6">
         <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
           <p className="text-sm text-zinc-500">
-            © {new Date().getFullYear()} TicketHub. All rights reserved.
+            © {new Date().getFullYear()} Bosh. All rights reserved.
           </p>
           <div className="flex gap-6">
             <Link
               href="/"
-              className="text-sm text-zinc-500 hover:text-zinc-300 transition-colors"
+              className="text-sm text-zinc-500 hover:text-white transition-colors"
             >
               Events
             </Link>
             <Link
               href="/events/create"
-              className="text-sm text-zinc-500 hover:text-zinc-300 transition-colors"
+              className="text-sm text-zinc-500 hover:text-white transition-colors"
             >
               Create Event
             </Link>
             <Link
               href="/checkout"
-              className="text-sm text-zinc-500 hover:text-zinc-300 transition-colors"
+              className="text-sm text-zinc-500 hover:text-white transition-colors"
             >
               Checkout
+            </Link>
+            <Link
+              href="/account"
+              className="text-sm text-zinc-500 hover:text-white transition-colors"
+            >
+              Account
             </Link>
           </div>
         </div>
