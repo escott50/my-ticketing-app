@@ -44,7 +44,7 @@ export async function getOrdersForEvents(
   if (ordersError) throw ordersError;
   if (!orders?.length) return [];
 
-  const userIds = [...new Set((orders as OrderRow[]).map((o) => o.user_id))];
+  const userIds = Array.from(new Set((orders as OrderRow[]).map((o) => o.user_id)));
 
   const { data: users, error: usersError } = await supabase
     .schema("next_auth")
