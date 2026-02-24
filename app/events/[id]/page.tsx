@@ -1,12 +1,8 @@
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { events } from "@/lib/mockData";
+import { getEventById } from "@/lib/events";
 
-/**
- * Event detail page — shows full info for one event.
- * Route: /events/[id] (e.g. /events/1). Uses the id to find the event in mockData.
- */
 interface EventPageProps {
   params: Promise<{ id: string }>;
 }
@@ -27,10 +23,10 @@ function formatPrice(price: number) {
 
 export default async function EventPage({ params }: EventPageProps) {
   const { id } = await params;
-  const event = events.find((e) => e.id === id);
+  const event = await getEventById(id);
 
   if (!event) {
-    notFound(); // Renders Next.js 404 page
+    notFound();
   }
 
   return (

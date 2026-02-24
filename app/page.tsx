@@ -1,11 +1,12 @@
 import EventCard from "@/components/EventCard";
-import { events } from "@/lib/mockData";
+import { getEvents } from "@/lib/events";
 
 /**
- * Homepage — lists all events in a responsive grid of EventCard components.
- * Data comes from lib/mockData (no database yet).
+ * Homepage — lists all events from Supabase in a responsive grid.
  */
-export default function HomePage() {
+export default async function HomePage() {
+  const events = await getEvents();
+
   return (
     <main className="mx-auto max-w-6xl px-4 py-8 sm:px-6">
       <h1 className="text-2xl font-bold text-white mb-2">Upcoming Events</h1>
