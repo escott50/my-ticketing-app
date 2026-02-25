@@ -56,7 +56,7 @@ INSERT INTO public.events (
     '8:00 PM',
     'Laugh Factory',
     20,
-    'https://images.unsplash.com/photo-1585699324551-f6c91c257c0f?w=800&q=80',
+    'https://images.unsplash.com/photo-1478720568477-152d9b164e26?w=800&q=80',
     'Laugh Factory'
   ),
   (

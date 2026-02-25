@@ -12,13 +12,15 @@ export default function Header() {
   const { data: session, status } = useSession();
 
   const navLinks = [
-    { href: "/", label: "Events" },
+    { href: "/", label: "Explore" },
     { href: "/events/create", label: "Create Event" },
-    { href: "/checkout", label: "Checkout" },
   ];
-  // When logged in, show Account instead of only email + sign out
+  // When logged in, show Organizer and Account
   const authLinks = session?.user
-    ? [{ href: "/account", label: "Account" }]
+    ? [
+        { href: "/organizer", label: "Organizer" },
+        { href: "/account", label: "Account" },
+      ]
     : [];
 
   function isActive(href: string) {
